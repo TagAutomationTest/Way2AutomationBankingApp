@@ -25,6 +25,7 @@ public class bankingHomePage {
 
     /****Actions*/
     public bankingHomePage AssertOnBankingHomePageHeader(String expectedHeader) {
+        Waits.waitForPageLoad(driver);
         actualBankingPageHeader = ElementActions.GetTextFromWebElement(driver, bankingHomePageTitle).toLowerCase();
         Validations.validateEquals(actualBankingPageHeader,
                 expectedHeader.toLowerCase(), "Banking HomePage Header Mismatch");
