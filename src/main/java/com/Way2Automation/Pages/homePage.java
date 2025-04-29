@@ -35,7 +35,7 @@ public class homePage {
 
 
     /****Actions*/
-    public homePage clickOnJsElementByName(String JsElementName) {
+    public homePage clickingOnJsElementByName(String JsElementName) {
         try {
             AngularJSElements = ElementActions.findElement(driver, AngularJSElementsParent_Ul).findElements(AngularJSElements_Li);
             for (WebElement Li : AngularJSElements) {

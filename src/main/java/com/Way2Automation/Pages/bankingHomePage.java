@@ -33,7 +33,7 @@ public class bankingHomePage {
         return this;
     }
 
-    public bankingManagerPage ClickOnBankingMangaerLoginButton() {
+    public bankingManagerPage clickingOnBankingMangaerLoginButton() {
         ElementActions.clickOnElement(driver, bankingManagerLogin_Btn);
         Waits.waitForPageLoad(driver);
         return new bankingManagerPage(driver);

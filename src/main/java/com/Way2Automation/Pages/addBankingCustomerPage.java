@@ -24,7 +24,7 @@ public class addBankingCustomerPage {
     private By customerFirstName_Input = By.cssSelector("input[ng-model*='fName']");
     private By customerLastName_Input = By.cssSelector("input[ng-model*='lName']");
     private By customerPostalCode_Input = By.cssSelector("input[ng-model*='postCd']");
-    private By addCustomerBtn = By.cssSelector("button[type='submit']");
+    private By addCustomerFormBtn = By.cssSelector("button[type='submit']");
 
     /****Constructor*/
     public addBankingCustomerPage(WebDriver driver) {
@@ -35,7 +35,7 @@ public class addBankingCustomerPage {
 
     /****Actions*/
     public addBankingCustomerPage assertOpeningAddCustomerPage() {
-        Waits.waitForElementToBeVisible(driver, addCustomerBtn);
+        Waits.waitForElementToBeVisible(driver, addCustomerFormBtn);
         addBankingCustomerPageUrl = BrowserActions.getCurrentuRL(driver);
         Validations.validateTrue(addBankingCustomerPageUrl.contains("addCust"), "add Banking Customer Page Url mismatch");
         Waits.waitForElementToBeVisible(driver, addCustomerForm);
@@ -52,9 +52,22 @@ public class addBankingCustomerPage {
         return this;
     }
 
+    public addBankingCustomerPage verifyThatCustomerFormFilled(String firstName, String lastName, String postalCode) {
+        CustomerForm = ElementActions.findElement(driver, addCustomerForm);
 
-    public addBankingCustomerPage ClickOnAddCustomerButton() {
-        ElementActions.clickOnElement(driver, addCustomerBtn);
+        Validations.validateEquals(ElementActions.getTextFromInput(driver, CustomerForm.findElement(customerFirstName_Input)),
+                firstName, "First name input not filled");
+        Validations.validateEquals(ElementActions.getTextFromInput(driver, CustomerForm.findElement(customerLastName_Input)),
+                lastName, "Last name input not filled");
+        Validations.validateEquals(ElementActions.getTextFromInput(driver, CustomerForm.findElement(customerPostalCode_Input)),
+                postalCode, "postalCode input not filled");
+
+        return this;
+    }
+
+
+    public addBankingCustomerPage clickingOnAddCustomerFormButton() {
+        ElementActions.clickOnElement(driver, addCustomerFormBtn);
 
         return this;
     }

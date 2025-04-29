@@ -24,23 +24,24 @@ public class E2eTestCases {
     String L_name;
     String postalCode;
 
-    @Test(priority = 1, alwaysRun = true)
+    @Test(priority = 1)
     @Description("Scenario 1: Add banking user then validate he is added to users list")
     public void addBankingCustomerThenValidateHeAddedToList_Flow() {
         new homePage(DriverManager.getDriver())
-                .clickOnJsElementByName(PropertiesUtils.getPropertyValue("angularJsElements"))
+                .clickingOnJsElementByName(PropertiesUtils.getPropertyValue("angularJsElements"))
                 .switchToBankingLoginTab()
                 .assertNewTabOpendProperly(PropertiesUtils.getPropertyValue("angularJsElements"))
 
                 .AssertOnBankingHomePageHeader(PropertiesUtils.getPropertyValue("BankLoginHeader"))
-                .ClickOnBankingMangaerLoginButton()
+                .clickingOnBankingMangaerLoginButton()
 
                 .assertOpeningBankingMangerPage()
                 .clickingOnAddCustomerButton()
 
                 .assertOpeningAddCustomerPage()
                 .fillAddCustomerForm(F_name, L_name, postalCode)
-                .ClickOnAddCustomerButton()
+                .verifyThatCustomerFormFilled(F_name, L_name, postalCode)
+                .clickingOnAddCustomerFormButton()
                 .extractCustomerIdFromAlertThenCloseAlert()
 
                 .clickingOnCustomersButton()

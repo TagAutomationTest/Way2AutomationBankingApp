@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ElementActions {
+    private static String value;
 
     private ElementActions() {
 
@@ -92,15 +93,21 @@ public class ElementActions {
      * </pre>
      *
      * @param driver  the WebDriver instance controlling the browser
-     * @param locator the By locator used to find the input or textarea element
+     * @param element the By locator used to find the input or textarea element
      * @return the value of the input field as a String, or null if not present
      */
     @Step("Getting text filled to input")
-    public static String getTextFromInput(WebDriver driver, By locator) {
-        Waits.waitForElementToBeVisible(driver, locator);
-        Scrolling.scrollToElement(driver, locator);
-        LogsUtil.info("input : ", locator.toString(), "filled by text : " + findElement(driver, locator).getDomAttribute("value"));
-        return findElement(driver, locator).getDomAttribute("value");
+    public static String getTextFromInput(WebDriver driver, WebElement element) {
+        Waits.waitForElementToBeVisible(driver, element);
+        Scrolling.scrollToElement(driver, element);
+        value = element.getDomAttribute("value");
+        if (value == null || value.isEmpty()) {
+            LogsUtil.info("input show " + value);
+            value = element.getDomProperty("value");
+            LogsUtil.info("input now show " + value);
+        }
+
+        return value;
     }
 
     /**
@@ -234,4 +241,6 @@ public class ElementActions {
 
         System.out.println("Randomly selected: " + randomOption.getText());
     }
+
+
 }
