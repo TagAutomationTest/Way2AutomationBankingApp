@@ -33,10 +33,13 @@ jobs:
       - name: Run UI Tests
         run: mvn test
 
-      - name: Install Allure commandline
+      - name: Install Node.js and Allure commandline
         run: |
           sudo apt-get update
-          sudo apt-get install allure
+          sudo apt-get install -y curl
+          curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          sudo npm install -g allure-commandline --save-dev
 
       - name: Generate Allure Report
         run: allure serve test-outputs/allure-results
